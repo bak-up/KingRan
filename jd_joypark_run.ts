@@ -2,8 +2,8 @@
 汪汪乐园-跑步+组队
 默认翻倍到0.01红包结束,修改请设置变量
 export JD_JOY_PARK_RUN_ASSETS="0.04"
-cron:30 0 * * * *
-30 0 * * * * jd_joy_park_run.ts
+cron:30 0 0-23/12 * * *
+30 0 0-23/12 * * * jd_joy_park_run.ts
 new Env('极速版汪汪赛跑');
 
 **/
