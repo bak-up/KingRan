@@ -92,13 +92,13 @@ let llAPIError = false
 async function jdGlobal() {
   try {
     //await richManIndex()
-    await wheelsHome()
-    await apTaskList()
-    await wheelsHome()
-    if ($.canhelp) {
-      await invite()
-      await invite2()
-    }
+    // await wheelsHome()
+    // await apTaskList()
+    // await wheelsHome()
+    // if ($.canhelp) {
+      // await invite()
+      // await invite2()
+    // }
     $.score = 0
     $.total = 0
     await taskList()
