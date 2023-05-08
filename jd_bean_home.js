@@ -131,7 +131,7 @@ function morningGetBean() {
 // 升级领京豆任务
 async function beanTaskList(type) {
     return new Promise(resolve => {
-        $.post(taskBeanUrl('beanTaskList', { "viewChannel": "myjd" }), async (err, resp, data) => {
+        $.post(taskBeanUrl('beanTaskList', { "viewChannel": "AppHome", "beanVersion": 1 }), async (err, resp, data) => {
             try {
                 if (err) {
                     console.log(`${JSON.stringify(err)}`)

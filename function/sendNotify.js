@@ -31,7 +31,7 @@ const querystring = require('querystring');
 const exec = require('child_process').exec;
 const $ = new Env();
 const timeout = 15000; //超时时间(单位毫秒)
-console.log("加载sendNotify，当前版本: 20230415");
+console.log("加载sendNotify，当前版本: 20230506V2");
 // =======================================go-cqhttp通知设置区域===========================================
 //gobot_url 填写请求地址http://127.0.0.1/send_private_msg
 //gobot_token 填写在go-cqhttp文件设置的访问密钥
@@ -642,14 +642,14 @@ async function sendNotify(text, desp, params = {}, author = '\n\n本通知 By ht
         if (process.env["TG_USER_ID" + UseGroupNotify] && Use_tgBotNotify) {
             TG_USER_ID = process.env["TG_USER_ID" + UseGroupNotify];
         }
-        if (process.env["TG_PROXY_AUTH" + UseGroupNotify] && Use_tgBotNotify)
-            TG_PROXY_AUTH = process.env["TG_PROXY_AUTH" + UseGroupNotify];
-        if (process.env["TG_PROXY_HOST" + UseGroupNotify] && Use_tgBotNotify)
-            TG_PROXY_HOST = process.env["TG_PROXY_HOST" + UseGroupNotify];
-        if (process.env["TG_PROXY_PORT" + UseGroupNotify] && Use_tgBotNotify)
-            TG_PROXY_PORT = process.env["TG_PROXY_PORT" + UseGroupNotify];
-        if (process.env["TG_API_HOST" + UseGroupNotify] && Use_tgBotNotify)
-            TG_API_HOST = process.env["TG_API_HOST" + UseGroupNotify];
+		if (process.env["TG_PROXY_AUTH"]) 
+			TG_PROXY_AUTH = process.env["TG_PROXY_AUTH"];
+		if (process.env["TG_PROXY_HOST"]) 
+			TG_PROXY_HOST = process.env["TG_PROXY_HOST"];
+		if (process.env["TG_PROXY_PORT"]) 
+			TG_PROXY_PORT = process.env["TG_PROXY_PORT"];		
+		if (process.env["TG_API_HOST"]) 
+			TG_API_HOST = process.env["TG_API_HOST"];
 
         if (process.env["DD_BOT_TOKEN" + UseGroupNotify] && Use_ddBotNotify) {
             DD_BOT_TOKEN = process.env["DD_BOT_TOKEN" + UseGroupNotify];
@@ -1044,8 +1044,12 @@ async function sendNotifybyWxPucher(text, desp, PtPin, author = '\n\n本通知 B
                         }
                     }
                     if (UserRemark) {
-                        text = text + " (" + UserRemark + ")";
+                        text +=  " (" + UserRemark + ")";
+						if(strsummary){
+							strsummary="(" + UserRemark + ")"+strsummary;
+						}
                     }
+					
                     console.log("处理完成，开始发送通知...");
                     desp = buildLastDesp(desp, author);
                     if (strAllNotify) {
@@ -1785,14 +1789,8 @@ function pushPlusNotify(text, desp) {
 function wxpusherNotifyByOne(text, desp, strsummary = "") {
     return new Promise((resolve) => {
         if (WP_APP_TOKEN_ONE) {
-            var WPURL = "";
-            if (strsummary) {
-                strsummary = text + "\n" + strsummary;
-            } else {
-                strsummary = text + "\n" + desp;
-            }
-
-            if (strsummary.length > 96) {
+            var WPURL = "";            
+            if (strsummary && strsummary.length > 96) {
                 strsummary = strsummary.substring(0, 95) + "...";
             }
             let uids = [];
