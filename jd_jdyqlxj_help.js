@@ -3,6 +3,8 @@
 
 需要定义环境变量 krjdlxjcode 指定助力码  多个@隔开
 
+地址：https://pro.m.jd.com/mall/active/4NoCGrZg1LLkNZfE7R3YJUx6inrG/index.html
+
 [task_local]
 #邀请领现金-京东APP
 11 11 11 11 * jd_ty_help.js, tag=邀请领现金-京东APP, img-url=https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png, enabled=true*/
