@@ -85,7 +85,7 @@ async function jdGlobal(cookie,url_uuid) {
 		return;
 	
     // await wheelsHome(cookie)
-    await apTaskList(cookie)
+    // await apTaskList(cookie)
     // await wheelsHome(cookie)
     await taskList(cookie,url_uuid)
     if (llAPIError) {      
