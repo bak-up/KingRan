@@ -629,7 +629,7 @@ async function getIsvToken2() {
 }
 function getSignfromDY(functionId, body) {	
 let data={'fn':functionId,'body':JSON.stringify(body)};
-	let optionsions={'url':'https://api.nolanstore.top/sign','body':JSON.stringify(data),'headers':{"Content-Type": "application/json"},'timeout':30000};
+	let optionsions={'url':'https://api.nolanstore.cc/sign','body':JSON.stringify(data),'headers':{"Content-Type": "application/json"},'timeout':30000};
 	return new Promise(async resolve=>{
 		$.post(optionsions,(err,resp,data)=>{
 			try{

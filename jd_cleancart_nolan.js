@@ -40,7 +40,7 @@ cron:8 8 8 8 *
 8 8 8 8 * jd_cleancart_nolan.js, tag=清空购物车-Sign版, enabled=true
 
 */
-let jdSignUrl = 'https://api.nolanstore.top/sign'
+let jdSignUrl = 'https://api.nolanstore.cc/sign'
 let cleancartRun = 'false'
 let cleancartProducts = ''
 const $ = new Env('清空购物车-Sign版');
