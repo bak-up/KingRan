@@ -1683,7 +1683,7 @@ function jdfruitRequest(function_id, body = {}, timeout = 1000) {
 								llgeterror = true;
 							}
 							else
-								$.JDwaterEveryDayT = data.firstWaterInit.totalWaterTimes;
+								$.JDwaterEveryDayT = data?.firstWaterInit?.totalWaterTimes;
 						}
 					}
 				} catch (e) {
