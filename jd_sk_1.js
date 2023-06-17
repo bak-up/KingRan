@@ -1,11 +1,11 @@
 /*
 解锁心动时刻
 
-cron:35 1,10 * * *
+cron:0 0,10 * * *
 ============Quantumultx===============
 [task_local]
 #解锁心动时刻
-35 1,10 * * * jd_szxyun_xm.js, tag=解锁心动时刻, enabled=true
+0 0,10 * * * jd_sk.js, tag=解锁心动时刻, enabled=true
 */
 
 const $ = new Env("解锁心动时刻");
