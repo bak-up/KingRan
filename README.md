@@ -32,6 +32,10 @@ ql repo命令拉取脚本时需要拉取的文件后缀，直接写文件后缀�
 
 `RepoFileExtensions="js py ts"`
 
+神秘代码
+
+`ql repo https://github.com/KingRan/KR.git "jd_|jx_|jdCookie" "activity|backUp" "^jd[^_]|USER|utils|function|sign|sendNotify|ql|JDJR"`
+
 
 
 ### 注意注意
