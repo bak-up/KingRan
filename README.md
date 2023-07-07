@@ -36,7 +36,8 @@ ql repo命令拉取脚本时需要拉取的文件后缀，直接写文件后缀�
 
 `ql repo https://github.com/KingRan/KR.git "jd_|jx_|jdCookie" "activity|backUp" "^jd[^_]|USER|utils|function|sign|sendNotify|ql|JDJR"`
 
-
+拉库失败或者拉不到更新的解决方案：
+`rm -rf /ql/repo/KingRan_KR && ql repo https://github.com/KingRan/KR.git "jd_|jx_|jdCookie" "activity|backUp" "^jd[^_]|USER|utils|function|sendNotify|ql|JDJR"`
 
 ### 注意注意
 
