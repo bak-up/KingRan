@@ -156,7 +156,6 @@ async function usersign() {
                     console.log(`${$.name} API请求失败，请检查网路重试`)
                 } else {
                     data = JSON.parse(data);
-                    JSON.stringify(data);
                     if (data) {
                         if (data.code === 200) {
                             console.log(`签到成功：获得积分${data.data.signInfo.signNum}`);
@@ -202,7 +201,7 @@ async function tasklist() {
                     console.log(`${$.name} API请求失败，请检查网路重试`)
                 } else {
                     data = JSON.parse(data)
-                    if (data) {
+                    if (JSON.stringify(data.data) !='{}') {
                         if(data.code == 200) {
 													$.tasklist = data.data
 												} else {
