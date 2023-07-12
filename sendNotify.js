@@ -31,7 +31,7 @@ const querystring = require('querystring');
 const exec = require('child_process').exec;
 const $ = new Env();
 const timeout = 15000; //超时时间(单位毫秒)
-console.log("加载sendNotify，当前版本: 20230506V2");
+console.log("加载sendNotify，当前版本: 20230712");
 // =======================================go-cqhttp通知设置区域===========================================
 //gobot_url 填写请求地址http://127.0.0.1/send_private_msg
 //gobot_token 填写在go-cqhttp文件设置的访问密钥
@@ -381,7 +381,7 @@ async function sendNotify(text, desp, params = {}, author = '\n\n本通知 By ht
                                         strNotifyOneTemp += `\n` + strAllNotify;
                                     desp = strNotifyOneTemp;
                                     if (WP_APP_TOKEN_ONE) {
-                                        await sendNotifybyWxPucher(`账号过期下线通知`, strNotifyOneTemp, strdecPtPin);
+                                        await sendNotifybyWxPucher(`账号过期下线通知`, strNotifyOneTemp, strdecPtPin,'\n\n本通知 By ccwav Mod',`账号下线通知`);
                                     }
 
                                 } else {
@@ -392,7 +392,7 @@ async function sendNotify(text, desp, params = {}, author = '\n\n本通知 By ht
                                         strNotifyOneTemp += `\n` + strAllNotify;
                                     desp = strNotifyOneTemp;
                                     if (WP_APP_TOKEN_ONE) {
-                                        await sendNotifybyWxPucher(`账号过期下线通知`, strNotifyOneTemp, strdecPtPin);
+                                        await sendNotifybyWxPucher(`账号过期下线通知`, strNotifyOneTemp, strdecPtPin,'\n\n本通知 By ccwav Mod',`账号下线通知`);
                                     }
                                 }
                             } else {
