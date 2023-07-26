@@ -1,5 +1,5 @@
 /*
-1 1 1 1 * jx_joypark_task.js
+12 8 * * * jx_joypark_task.js
 */
 const $ = new Env('牛牛乐园任务');
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
