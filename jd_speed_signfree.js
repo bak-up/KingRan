@@ -3,9 +3,7 @@
   京东极速版,先下单,第二天开始签到
   18 8,20 * * * jd_speed_signfree.js 签到免单
 */
-// 自行确认是否有效
-
-const $ = new Env('极速签到免单');
+const $ = new Env('京东极速版签到免单');
 const notify = $.isNode() ? require('./sendNotify') : '';
 //Node.js用户请在jdCookie.js处填写京东ck;
 const jdCookieNode = $.isNode() ? require('./jdCookie.js') : '';
@@ -18,6 +16,9 @@ let cookiesArr = [],
 const activityId = 'PiuLvM8vamONsWzC0wqBGQ'
 
 if ($.isNode()) {
+	console.log('\n入口>京东极速版>首页>签到免单')
+	console.log('京东极速版,先下单,第二天开始签到')
+	console.log('请自行测试是否有效！！！')
     Object.keys(jdCookieNode).forEach((item) => {
         cookiesArr.push(jdCookieNode[item])
     })
@@ -36,15 +37,16 @@ const JD_API_HOST = 'https://api.m.jd.com/';
             message = '';
             console.log(`\n******开始【京东账号${$.index}】${$.nickName || $.UserName}*********\n`);
             msg.push(($.nickName || $.UserName) + ':')
+            first_flag = true
             await sign_all()
         }
     }
     if (msg.length) {
-        console.log('有消息,推送消息')
-        await notify.sendNotify($.name, msg.join('\n'))
+        // console.log('有消息,推送消息')
+        // await notify.sendNotify($.name, msg.join('\n'))
     } else {
         console.error('无消息,推送错误')
-        await notify.sendNotify($.name + '错误!!', "无消息可推送!!")
+        // await notify.sendNotify($.name + '错误!!', "无消息可推送!!")
     }
 })()
 .catch((e) => {
@@ -58,7 +60,6 @@ const JD_API_HOST = 'https://api.m.jd.com/';
 async function sign_all() {
     await query()
     if (!$.signFreeOrderInfoList){
-        console.log('啥也没买,结束')
         return
     }
     await $.wait(3000)
@@ -95,14 +96,17 @@ function query() {
                     if (data.success == true) {
                         if (!data.data.signFreeOrderInfoList) {
                             console.log("没有需要签到的商品,请到京东极速版[签到免单]购买商品");
-                            msg.push("没有需要签到的商品,请到京东极速版[签到免单]购买商品")
+                            // msg.push("没有需要签到的商品,请到京东极速版[签到免单]购买商品")
                         } else {
                             $.signFreeOrderInfoList = data.data.signFreeOrderInfoList
-                            console.log("脚本也许随时失效,请注意");
-                            msg.push("脚本也许随时失效,请注意")
-                            if (data.data.risk == true) {
-                                console.log("风控用户,可能有异常");
-                                msg.push("风控用户,可能有异常")
+                            if (first_flag) {
+                                first_flag = false
+                                console.log("脚本也许随时失效,请注意");
+                                // msg.push("脚本也许随时失效,请注意")
+                                if (data.data.risk == false) {
+                                    console.log("风控用户,可能有异常");
+                                    // msg.push("风控用户,可能有异常")
+                                }
                             }
                         }
                     }else{
