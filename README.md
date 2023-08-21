@@ -44,9 +44,9 @@ ql repo命令拉取脚本时需要拉取的文件后缀，直接写文件后缀�
 
 `rm -rf /ql/repo/KingRan_KR && ql repo https://github.com/KingRan/KR.git "jd_|jx_|jdCookie" "activity|backUp" "^jd[^_]|USER|utils|function|sendNotify|ql|JDJR"`
 
-### Arcadia面板神秘代码
+### Arcadia面板神秘代码（[项目地址](https://arcadia.cool)）
 
-`arcadia repo KR "https://github.com/KingRan/KR.git" main --updateTaskList true --whiteList "^jd_|^jx_" --blackList "wskey|CheckCK|^jd_(disable|wx|txzj_|opencard|lzkj_|dplh|jinggeng`
+`arcadia repo KR "https://github.com/KingRan/KR.git" main --updateTaskList true --whiteList "^jd_|^jx_" --blackList "^jd_(wsck|CheckCK|disable|wx|txzj_|opencard|lzkj_|dplh|jinggeng)"`
 
 
 
