@@ -30,11 +30,11 @@
 
 `例子：export jd_lzkj_loreal_address="Z先生@13888888888@江苏省@南通市@崇川区@开发区万科翡翠公园|K先生@13888888888@江苏省@南通市@崇川区@开发区万科翡翠公园"`
 
-### 拉取(js py ts)青龙 config.sh 文件中修改
+### 拉取(js py sh)青龙 config.sh 文件中修改
 
 ql repo命令拉取脚本时需要拉取的文件后缀，直接写文件后缀名即可
 
-`RepoFileExtensions="js py ts"`
+`RepoFileExtensions="js py sh"`
 
 ### 青龙面板神秘代码
 
