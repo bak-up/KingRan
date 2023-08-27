@@ -29,6 +29,8 @@
 0 0 * * * node /scripts/jd_exchange.js >> /scripts/logs/jd_exchange.log 2>&1
 # 签到
 0 3 * * * node /scripts/jd_jdgj_sign.js >> /scripts/logs/jd_jdgj_sign.log 2>&1
+# 摇钱树任务
+25 4,14 * * * node /scripts/jd_yqs.js >> /scripts/logs/jd_yqs.log 2>&1
 # 天天领京豆兑换
 0 21 * * * node /scripts/jd_lzkj_ttljd_exchange.js >> /scripts/logs/jd_lzkj_ttljd_exchange.log 2>&1
 # 天天领京豆
@@ -43,12 +45,8 @@
 5 6-18/6 * * * node /scripts/jd_fruit_task.js >> /scripts/logs/jd_fruit_task.log 2>&1
 # 京洞察问卷通知
 35 11 * * * node /scripts/jd_insight.js >> /scripts/logs/jd_insight.log 2>&1
-# 汪汪乐园每日任务
-0 1,7,20 * * * node /scripts/jd_joy_park_task.js >> /scripts/logs/jd_joy_park_task.log 2>&1
-# JOY庄园每日任务
-11 1,15 * * * node /scripts/jd_joymanor_task.js >> /scripts/logs/jd_joymanor_task.log 2>&1
-# 极速版签到提现-加密
-30 0,15 * * * node /scripts/jd_tj_sign.js >> /scripts/logs/jd_tj_signn.log 2>&1
+# 特价版签到提现
+20 1,17 * * * node /scripts/jd_tj_sign.js >> /scripts/logs/jd_tj_signn.log 2>&1
 # 京东快递签到
 10 0 * * * node /scripts/jd_kd.js >> /scripts/logs/jd_kd.log 2>&1
 # 京东快递签到
@@ -66,13 +64,9 @@
 # 闪购签到有礼
 10 10 * * * node /scripts/jd_shangou.js >> /scripts/logs/jd_shangou.log 2>&1
 # 小豆签到
-48 2,19 * * * node /scripts/jd_krSign.js >> /scripts/logs/jd_krSign.log 2>&1
-# 小豆签到
 48 1,18 * * * node /scripts/jd_beanSign.js >> /scripts/logs/jd_beanSign.log 2>&1
 # 京东签到翻牌
 10 8 * * * node /scripts/jd_sign_graphics.js >> /scripts/logs/jd_sign_graphics.log 2>&1
-# 京东极速版领红包-加密
-20 0,22 * * * node /scripts/jd_speed_redpocke.js >> /scripts/logs/jd_speed_redpocke.log 2>&1
 # 京东极速版
 21 3,8 * * * node /scripts/jd_speed_sign.js >> /scripts/logs/jd_speed_sign.log 2>&1
 # 特务Z-II
