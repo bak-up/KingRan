@@ -68,6 +68,8 @@ global.GLOBAL_AGENT.HTTP_PROXY="http://DL池docker地址:8080";
 
 global.GLOBAL_AGENT.NO_PROXY="127.0.0.1,*.baidu.com"
 ```
-
-
+### DL推荐
+#### 巨量（[每天签到送1000IP](https://www.juliangip.com/user/reg?inviteCode=1007749)）
+#### 星空（[每天签到送100IP，满2000可兑换](http://www.xkdaili.com/?ic=4a8w7s4z)）
+#### 携趣（[每天直接送1000IP](https://www.xiequ.cn/index.html?8af9f3d1)）
 
