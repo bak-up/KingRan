@@ -67,6 +67,10 @@ global.GLOBAL_AGENT.HTTP_PROXY="http://DL池docker地址:8080";
 禁止使用DL名单,例如本机访问不走DL 
 
 global.GLOBAL_AGENT.NO_PROXY="127.0.0.1,*.baidu.com"
+
+本库代理开启变量（部分支持）
+JD_PROXY_OPEN      // 代理启用变量，默认不开启（true/false）
+JD_PROXY_TUNNRL      // 代理地址变量，默认不开启，仅支持代理池模式(auto-proxy-pool)，格式为：http://ip:port
 ```
 ### DL推荐
 #### 巨量（[每天签到送1000IP](https://www.juliangip.com/user/reg?inviteCode=1007749)）
