@@ -234,30 +234,34 @@ function toSDS(name){
   }
   return res
 }
-function jdApi(functionId,body) {
-  if(!functionId || !body) return
-  return new Promise(resolve => {
-    $.post(taskPostUrl(`/client.action?functionId=${functionId}`, body), async (err, resp, data) => {
-      try {
-        if (err) {
-          console.log(`${$.toStr(err)}`)
-          console.log(`${$.name} API请求失败，请检查网路重试`)
-        } else {          
-          let res = $.toObj(data,data);
-          if(typeof res == 'object'){
-            if(res.mainTitle) console.log(res.mainTitle)
-            if(res.resultCode == 0){
-              resolve(res);
+function jdApi(functionId, body) {
+    if (!functionId || !body) return
+    return new Promise(resolve => {
+        $.post(taskPostUrl(`/client.action?functionId=${functionId}`, body), async (err, resp, data) => {
+            try {
+                if (err) {
+                    console.log(`${$.toStr(err)}`)
+                    console.log(`${$.name} API请求失败，请检查网路重试`)
+                } else {
+                    // console.log(data)
+                    let res = $.toObj(data, data);
+                    if (typeof res == 'object') {
+                        if (res.mainTitle) console.log(res.mainTitle)
+                        if (res.resultCode == 0) {
+                            resolve(res);
+                        } else if (res.tips && res.tips.includes("正在努力加载")) {
+                            console.log("请求太快，ip被限制了")
+                            $.out = true
+                        }
+                    }
+                }
+            } catch (e) {
+                $.logErr(e, resp)
+            } finally {
+                resolve('');
             }
-          }
-        }
-      } catch (e) {
-        $.logErr(e, resp)
-      } finally {
-        resolve('');
-      }
+        })
     })
-  })
 }
 
 function jdSign(fn, body) {
@@ -319,20 +323,20 @@ function jdSign(fn, body) {
 
 
 function taskPostUrl(url, body) {
-  return {
-    url: `https://api.m.jd.com${url}`,
-    body: body,
-    headers: {
-      "Accept": "*/*",
-      "Accept-Language": "zh-cn",
-      "Accept-Encoding": "gzip, deflate, br",
-      "Connection": "keep-alive",
-      "Content-Type": "application/x-www-form-urlencoded",
-      'Cookie': `${cookie}`,
-      "Host": "api.m.jd.com",
-      "User-Agent": "JD4iPhone/167853 (iPhone; iOS; Scale/2.00)" ,
+    return {
+        url: `https://api.m.jd.com${url}&${body}`,
+        //body: body,
+        headers: {
+            "Accept": "*/*",
+            "Accept-Language": "zh-cn",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Connection": "keep-alive",
+            "Content-Type": "application/x-www-form-urlencoded",
+            'Cookie': `${cookie}`,
+            "Host": "api.m.jd.com",
+            "User-Agent": "JD4iPhone/167853 (iPhone; iOS; Scale/2.00)",
+        }
     }
-  }
 }
 
 function randomString(e) {
