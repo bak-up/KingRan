@@ -31,6 +31,8 @@
 0 3 * * * node /scripts/jd_jdgj_sign.js >> /scripts/logs/jd_jdgj_sign.log 2>&1
 # 摇钱树任务
 25 4,14 * * * node /scripts/jd_yqs.js >> /scripts/logs/jd_yqs.log 2>&1
+# 代理缓存Token
+25 4,14 * * * node /scripts/jd_token.js >> /scripts/logs/jd_token.log 2>&1
 # 天天领红包
 25 7 * * * node /scripts/jd_ttlhb.js >> /scripts/logs/jd_ttlhb.log 2>&1
 # 积分换话费
