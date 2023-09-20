@@ -324,8 +324,8 @@ function jdSign(fn, body) {
 
 function taskPostUrl(url, body) {
     return {
-        url: `https://api.m.jd.com${url}&${body}`,
-        //body: body,
+        url: `https://api.m.jd.com${url}`,
+        body: body,
         headers: {
             "Accept": "*/*",
             "Accept-Language": "zh-cn",
