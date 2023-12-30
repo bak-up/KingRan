@@ -3,7 +3,10 @@
  */
 //此处填写京东账号cookie。
 let CookieJDs = [
+  '',//账号一ck,例:pt_key=XXX;pt_pin=XXX;
+  '',//账号二ck,例:pt_key=XXX;pt_pin=XXX;如有更多,依次类推
 ]
+let IP = '';
 // 判断环境变量里面是否有京东ck
 if (process.env.JD_COOKIE) {
   if (process.env.JD_COOKIE.indexOf('&') > -1) {
@@ -14,25 +17,72 @@ if (process.env.JD_COOKIE) {
     CookieJDs = [process.env.JD_COOKIE];
   }
 }
-if (JSON.stringify(process.env).indexOf('GITHUB')>-1) {
+if (JSON.stringify(process.env).indexOf('GITHUB') > -1) {
   console.log(`请勿使用github action运行此脚本,无论你是从你自己的私库还是其他哪里拉取的源代码，都会导致我被封号\n`);
   !(async () => {
     await require('./sendNotify').sendNotify('提醒', `请勿使用github action、滥用github资源会封我仓库以及账号`)
     await process.exit(0);
   })()
 }
+//!(async () => {
+//	IP = await getIP();
+//    try {
+//        IP = IP.match(/((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})(\.((2(5[0-5]|[0-4]\d))|[0-1]?\d{1,2})){3}/)[0];
+//        console.log(`\n当前公网IP: ${IP}`);
+//    } catch (e) { }
+//})()
 CookieJDs = [...new Set(CookieJDs.filter(item => !!item))]
 if (process.env.JD_DEBUG && process.env.JD_DEBUG === 'false') console.log = () => { };
-console.log(`\n====================共${CookieJDs.length}个京东账号Cookie=================\n`);
-console.log(`===========脚本执行时间：${formatdate(new Date(new Date().getTime() + new Date().getTimezoneOffset() * 60 * 1000 + 8 * 60 * 60 * 1000))}============\n`)
-console.log('==================KR 提示：任务正常运行中================\n')
+console.log(`\n====================共${CookieJDs.length}个京东账号Cookie=================`);
+console.log(`===========脚本执行时间：${formatdate(new Date(new Date().getTime() + new Date().getTimezoneOffset() * 60 * 1000 + 8 * 60 * 60 * 1000))}============`);
+console.log('>>>>>>>>>>>>6Dy提醒您：有问题先更新不行在反馈>>>>>>>>>>>>>\n');
 for (let i = 0; i < CookieJDs.length; i++) {
   if (!CookieJDs[i].match(/pt_pin=(.+?);/) || !CookieJDs[i].match(/pt_key=(.+?);/)) console.log(`\n提示:京东cookie 【${CookieJDs[i]}】填写不规范,可能会影响部分脚本正常使用。正确格式为: pt_key=xxx;pt_pin=xxx;（分号;不可少）\n`);
   CookieJDs[i] = CookieJDs[i].replace(/[\u4e00-\u9fa5]/g, (str) => encodeURI(str));
   const index = (i + 1 === 1) ? '' : (i + 1);
   exports['CookieJD' + index] = CookieJDs[i].trim();
 }
+let permit = process.env.PERMIT_JS ? process.env.PERMIT_JS.split('&') : '';
 
+if (process.env.DP_POOL) {
+  if (permit && permit.filter(x => process.mainModule.filename.includes(x)).length != 0) {
+    try {
+      require("global-agent/bootstrap");
+      global.GLOBAL_AGENT.HTTP_PROXY = process.env.DP_POOL;
+      console.log(`\n---------------使用代理池模式---------------\n`);
+    } catch {
+      throw new Error(`请安装global-agent依赖，才能启用代理！`);
+
+    }
+  } else {
+
+  }
+}
+function getIP() {
+  const https = require('https');
+  return new Promise((resolve, reject) => {
+    let opt = {
+      hostname: "www.cip.cc",
+      port: 443,
+      path: "/",
+      method: "GET",
+      headers: {
+        "User-Agent": 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36',
+      },
+      timeout: 5000
+    }
+    const req = https.request(opt, (res) => {
+      res.setEncoding('utf-8');
+      let tmp = '';
+      res.on('error', reject);
+      res.on('data', d => tmp += d);
+      res.on('end', () => resolve(tmp));
+    });
+
+    req.on('error', reject);
+    req.end();
+  });
+}
 // 以下为注入互助码环境变量（仅nodejs内起效）的代码
 function SetShareCodesEnv(nameChinese = "", nameConfig = "", envName = "") {
   let rawCodeConfig = {}
@@ -130,9 +180,6 @@ let nameConfig = process.env.ShareCodeConfigName
 let envName = process.env.ShareCodeEnvName
 if (nameChinese && nameConfig && envName) {
   SetShareCodesEnv(nameChinese, nameConfig, envName)
-} else {
-    console.debug(`KingRan 频道通知：https://t.me/KingRan521\n`)
-	console.debug(`云服务器IP须知：域名前缀为 'lzdz' 的禁用勿跑容易黑号\n`)
 }
 function formatdate(date) {
   const year = date.getFullYear();
