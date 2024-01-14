@@ -1,13 +1,9 @@
 
 ## 6dy
 
-声明: 此库所有内容仅用于测试学习，测试完后请自行删除！！！
+声明: 此库所有内容仅用于个人学习！！！
 
-### [TG频道](https://t.me/dylan_jdpro)
-
-
-## 拉库
-
+### [TG CHANEL](https://t.me/dylan_jdpro)
 
 
 国内机（带代理）：
@@ -26,12 +22,12 @@ ql repo https://github.com/6dylan6/jdpro.git "jd_|jx_|jddj_" "backUp" "^jd[^_]|U
 ```
 
 
-定时随意，不要设置为每秒或每分钟
+定时随意
 
 
-线报监控类脚本，[入口](https://github.com/6dylan6/jdm.git)
+线报监控类，[入口](https://github.com/6dylan6/jdm.git)
 
-带图自动评价（需PC版CK，本库也有简化版可用）[入口](https://github.com/6dylan6/auto_comment.git)
+带图评价（PC版CK，本库也有简化版可用）[入口](https://github.com/6dylan6/auto_comment.git)
 
 
 ## 简要流程
@@ -48,12 +44,12 @@ RepoFileExtensions="js py"修改为 RepoFileExtensions="js py sh" 保存；
 
 4、到环境变量，创建变量，名称: JD_COOKIE,值：抓的CK，多个依次创建；
 
-5，配置通知，通知的key填写到配置管理config.sh文件；
+5、配置通知，通知的key填写到配置管理config.sh文件；
 
-
+6、sendnotify.js文件请拷贝库里的到青龙deps目录下，否则会贝尔自带覆盖
 
 <details>
-<summary>进阶</summary>
+<summary>笔记</summary>
 <pre><code>
 
 1、任务并发和分组

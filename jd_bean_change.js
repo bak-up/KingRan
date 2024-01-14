@@ -120,8 +120,8 @@ let strGuoqi = "";
 let RemainMessage = '\n';
 RemainMessage += "⭕提醒:⭕" + '\n';
 RemainMessage += '【京喜特价金币】京东特价版->我的->金币(可兑换无门槛红包)\n';
-RemainMessage += '【领现金】京东->搜领现金(可微信提现或兑换红包)\n';
 RemainMessage += '【话费积分】京东->充值中心-赚积分兑话费（180天效期）\n';
+RemainMessage += '【超市卡】京东超市-超市卡赠金（30天效期，购买超市商品可用）\n';
 RemainMessage += '【东东农场】京东->我的->东东农场,完成可兑换无门槛红包,可用于任意商品\n';
 RemainMessage += '【其他】不同类别红包不能叠加使用，自测';
 
@@ -826,10 +826,19 @@ async function showMsg() {
         let dwappex = await dwappexpire();
         ReturnMessage += `【话费积分】${dwscore}`;
         if (dwappex) {
-            ReturnMessage += `(最近已过期:${dwappex})`;
+            ReturnMessage += `(近7日将过期${dwappex})`;
         }
         ReturnMessage += `\n`;
     }
+    let marketcard = await marketCard();
+    if (marketcard && marketcard.balance != '0.00' ) {
+        ReturnMessage += `【超市卡】${marketcard.balance}元`;
+        if (marketcard.expirationGiftAmountDes) {
+            ReturnMessage += `(${marketcard.expirationGiftAmountDes})`;
+        }
+        ReturnMessage += `\n`;
+    }
+
     if ($.jdCash) {
         ReturnMessage += `【其他信息】`;
 
@@ -845,6 +854,7 @@ async function showMsg() {
         ReturnMessage += `💸💸💸临期京豆明细💸💸💸\n`;
         ReturnMessage += `${strGuoqi}`;
     }
+
     ReturnMessage += `🧧🧧🧧红包明细🧧🧧🧧\n`;
     ReturnMessage += `${$.message}`;
     strsummary += `红包${$.balance}元`
@@ -1508,9 +1518,9 @@ function redPacket() {
 
                         if ($.jsRed > 0) {
                             if ($.jsRedExpire > 0)
-                                $.message += `【京喜特价】${$.jsRed}(将过期${$.jsRedExpire.toFixed(2)})元(原极速版) \n`;
+                                $.message += `【京喜特价】${$.jsRed}(将过期${$.jsRedExpire.toFixed(2)})元 \n`;
                             else
-                                $.message += `【京喜特价】${$.jsRed}元(原极速版) \n`;
+                                $.message += `【京喜特价】${$.jsRed}元 \n`;
                         }
 
                         if ($.jdRed > 0) {
@@ -2136,23 +2146,24 @@ function dwappinfo() {
 }
 function dwappexpire() {
     let opt = {
-        url: `https://dwapp.jd.com/user/scoreDetail?pageNo=1&pageSize=10&scoreType=16&t=1637`,
+        url: `https://api.m.jd.com/api?functionId=DATAWALLET_USER_QUERY_EXPIRED_SCORE&appid=h5-sep&body=%7B%22expireDayNum%22%3A7%7D&client=m&clientVersion=6.0.0`,
         headers: {
-
+			'Origin':'https://prodev.m.jd.com',
             'User-Agent': $.UA,
             'Cookie': cookie
         }
     }
     return new Promise(async (resolve) => {
-        $.get(opt, async (err, resp, data) => {
+        $.post(opt, async (err, resp, data) => {
             try {
                 if (err) {
                     console.log(`${JSON.stringify(err)}`)
-                    console.log(` API请求失败，请检查网路重试`)
+                    console.log(`dwappexpire 请求失败，请检查网路重试`)
                 } else {
                     data = JSON.parse(data)
                     if (data.code == 200) {
-                        data = data.data.userOperateList.length !== 0 ? moment(new Date(data.data.userOperateList[0].time)).format('M/D') : '';
+                        data = data.data.expireNum;
+						
                     } else {
                         //console.log(data.msg);
                         data = '';
@@ -2227,6 +2238,38 @@ function getek() {
                 $.logErr(e, resp)
             } finally {
                 resolve(data)
+            }
+        })
+    })
+}
+function marketCard() {
+    let opt = {
+        url: `https://api.m.jd.com/atop_channel_marketCard_cardInfo`,
+        body: `appid=jd-super-market&t=${Date.now()}&functionId=atop_channel_marketCard_cardInfo&client=m&uuid=&body=%7B%22babelChannel%22%3A%22ttt9%22%2C%22isJdApp%22%3A%221%22%2C%22isWx%22%3A%220%22%7D`,
+        headers: {
+            'Origin': 'https://pro.m.jd.com',
+            'User-Agent': $.UA,
+            'Cookie': cookie
+        }
+    }
+    let carddata = '';
+    return new Promise(async (resolve) => {
+        $.post(opt, async (err, resp, data) => {
+            try {
+                if (err) {
+                    console.log(`${JSON.stringify(err)}`)
+                    console.log(`marketCard 请求失败，请检查网路重试`)
+                } else {
+                    data = JSON.parse(data)
+                    if (data.success) {
+                        carddata = data.data?.floorData?.items ? data.data?.floorData?.items[0].marketCardVO : '';
+                    } else {
+                    }
+                }
+            } catch (e) {
+                $.logErr(e, resp);
+            } finally {
+                resolve(carddata);
             }
         })
     })
